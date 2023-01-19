@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import finnHub from "../apis/finnHub";
 
+// https://youtu.be/u6gSSpfsoOQ?t=26025
+
 export const StockDetailPage = () => {
     const { symbol } = useParams();
 
