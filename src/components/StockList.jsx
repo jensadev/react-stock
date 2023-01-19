@@ -1,9 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import finnHub from '../apis/finnHub';
+import {GoTriangleDown} from 'react-icons/go';
+import {GoTriangleUp} from 'react-icons/go';
+import {WatchListContext} from '../context/watchListContext';
+import { useNavigate } from 'react-router-dom';
 
 export const StockList = () => {
-    const [watchList, setWatchList] = useState(['GOOGL', 'MSFT', 'AMZN']);
     const [stock, setStock] = useState();
+    const { watchList } = useContext(WatchListContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
         let isMounted = true;
@@ -38,15 +43,18 @@ export const StockList = () => {
         fetchStocks();
 
         return () => (isMounted = false);
-    }, []);
+    }, [watchList]);
 
     const changeColor = (change) => {
-        if (change > 0) {
-            return 'success';
-        } else if (change < 0) {
-            return 'danger';
-        }
-        return 'secondary';
+        return change > 0 ? 'success' : 'danger';
+    };
+
+    const changeIcon = (change) => {
+        return change > 0 ? <GoTriangleUp /> : <GoTriangleDown />;
+    };
+
+    const handleStockSelect = (symbol) => {
+        navigate(`/detail/${symbol}`);
     };
 
     return (
@@ -67,11 +75,11 @@ export const StockList = () => {
                 <tbody>
                     {stock &&
                         stock.map((stock) => (
-                            <tr key={stock.symbol}>
+                            <tr key={stock.symbol} onClick={() => handleStockSelect(stock.symbol)}>
                                 <th scope='row'>{stock.symbol}</th>
                                 <td>{stock.data.c}</td>
-                                <td className={`text-${changeColor(stock.data.d)}`}>{stock.data.d}</td>
-                                <td className={`text-${changeColor(stock.data.d)}`}>{stock.data.dp}</td>
+                                <td className={`text-${changeColor(stock.data.d)}`}>{ stock.data.d }{ changeIcon(stock.data.d) }</td>
+                                <td className={`text-${changeColor(stock.data.d)}`}>{ stock.data.dp }{ changeIcon(stock.data.d) }</td>
                                 <td>{stock.data.h}</td>
                                 <td>{stock.data.l}</td>
                                 <td>{stock.data.o}</td>

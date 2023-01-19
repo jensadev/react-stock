@@ -4,17 +4,21 @@ import '../node_modules/modern-css-reset/dist/reset.min.css'
 import { StockOverviewPage } from './pages/StockOverviewPage';
 import { StockDetailPage } from './pages/StockDetailPage';
 
+import { WatchListContextProvider } from './context/watchListContext';
+
 function App() {
 
   return (
-    <main className='container'>
-        <BrowserRouter>
-            <Routes>
-                <Route path='/' element={<StockOverviewPage />} />
-                <Route path='/detail/:id' element={<StockDetailPage />} />
-            </Routes>
-        </BrowserRouter>
-    </main>
+    <WatchListContextProvider>
+        <main className='container'>
+            <BrowserRouter>
+                <Routes>
+                    <Route path='/' element={<StockOverviewPage />} />
+                    <Route path='/detail/:symbol' element={<StockDetailPage />} />
+                </Routes>
+            </BrowserRouter>
+        </main>
+    </WatchListContextProvider>
   )
 }
 
