@@ -7,6 +7,8 @@ export const StockChart = ({ chartData, symbol }) => {
     const { day, week, month, year } = chartData;
     const [timeFrame, setTimeFrame] = useState('24h');
 
+    const color = '#f1f1f1';
+
     const options = {
         title: {
             text: symbol,
