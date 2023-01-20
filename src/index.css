@@ -65,6 +65,7 @@ button {
     background-color: var(--color-darker);
     cursor: pointer;
     transition: border-color 0.25s;
+    text-transform: uppercase;
 }
 button:hover {
     border-color: var(--color-primary);

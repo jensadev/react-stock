@@ -3,6 +3,7 @@ import './App.css'
 import '../node_modules/modern-css-reset/dist/reset.min.css'
 import { StockOverviewPage } from './pages/StockOverviewPage';
 import { StockDetailPage } from './pages/StockDetailPage';
+import { Navbar } from './components/Navbar';
 
 import { WatchListContextProvider } from './context/watchListContext';
 
@@ -11,6 +12,7 @@ function App() {
   return (
     <WatchListContextProvider>
         <main className='container'>
+            <Navbar />
             <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<StockOverviewPage />} />

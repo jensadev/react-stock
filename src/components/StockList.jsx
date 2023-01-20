@@ -5,9 +5,11 @@ import {GoTriangleUp} from 'react-icons/go';
 import {WatchListContext} from '../context/watchListContext';
 import { useNavigate } from 'react-router-dom';
 
+import {GoTrashcan} from 'react-icons/go';
+
 export const StockList = () => {
     const [stock, setStock] = useState();
-    const { watchList } = useContext(WatchListContext);
+    const { watchList, removeStock } = useContext(WatchListContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -70,6 +72,7 @@ export const StockList = () => {
                         <th scope='col'>Low</th>
                         <th scope='col'>Open</th>
                         <th scope='col'>PClose</th>
+                        <th scope='col'></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,6 +87,14 @@ export const StockList = () => {
                                 <td>{stock.data.l}</td>
                                 <td>{stock.data.o}</td>
                                 <td>{stock.data.pc}</td>
+                                <td>
+                                    <button onClick={(e) => {
+                                        e.stopPropagation();
+                                        removeStock(stock.symbol);
+                                    }}>
+                                        <GoTrashcan />
+                                    </button>
+                                </td>
                             </tr>
                         ))}
                 </tbody>

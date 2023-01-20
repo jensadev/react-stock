@@ -7,7 +7,20 @@ export const StockChart = ({ chartData, symbol }) => {
     const { day, week, month, year } = chartData;
     const [timeFrame, setTimeFrame] = useState('24h');
 
-    const color = '#f1f1f1';
+    const changeTimeFrame = () => {
+        switch (timeFrame) {
+            case '24h':
+                return day;
+            case '1w':
+                return week;
+            case '1m':
+                return month;
+            case '1y':
+                return year;
+            default:
+                return day;
+        }
+    };
 
     const options = {
         title: {
@@ -36,20 +49,20 @@ export const StockChart = ({ chartData, symbol }) => {
         },
     };
 
-    const changeTimeFrame = () => {
-        switch (timeFrame) {
-            case '24h':
-                return day;
-            case '1w':
-                return week;
-            case '1m':
-                return month;
-            case '1y':
-                return year;
-            default:
-                return day;
-        }
-    };
+    let color;
+    try {
+        const a = changeTimeFrame()[changeTimeFrame().length -1].y;
+        const b = changeTimeFrame()[0].y;
+
+        color = a - b > 0 ? '#e53e3e' : '#48bb78';
+
+    } catch (error) {
+        console.log(error)
+    }
+
+    if (color) {
+        options['colors'] = [color];
+    }
 
     const series = [
         {
