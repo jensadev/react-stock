@@ -51,10 +51,20 @@ export const StockChart = ({ chartData, symbol }) => {
 
     let color;
     try {
-        const a = changeTimeFrame()[changeTimeFrame().length -1].y;
-        const b = changeTimeFrame()[0].y;
+        const timeFrame = changeTimeFrame();
 
-        color = a - b > 0 ? '#e53e3e' : '#48bb78';
+        // if (timeFrame) {
+        //     console.log(timeFrame[timeFrame.length - 1].y, timeFrame[0].y)
+        // }
+
+        console.log(timeFrame[timeFrame.length - 1])
+
+        const a = timeFrame[timeFrame.length - 1];
+        const b = timeFrame[0];
+
+        console.log({a} , {b})
+
+        color = a.y - b.y > 0 ? '#e53e3e' : '#48bb78';
 
     } catch (error) {
         console.log(error)

@@ -8,7 +8,6 @@ export const AutoComplete = () => {
     const { addStock } = useContext(WatchListContext);
 
     useEffect(() => {
-        let isMounted = true;
         const fetchData = async () => {
             try {
                 const response = await finnHub.get('/search', {
@@ -26,7 +25,6 @@ export const AutoComplete = () => {
         } else {
             setResults([]);
         }
-        return () => { isMounted = false };
     }, [search]);
 
     return (
